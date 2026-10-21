@@ -54,9 +54,44 @@ function resolveLanguage(value) {
   return /^ru(?:[_-]|$)/i.test(String(value || '')) ? 'ru' : 'en';
 }
 
+const GERMAN = {
+  "The list is too large (maximum 2 MB).": "Die Liste ist zu groß (max. 2 MB).",
+  "Enter song names, not URLs or file paths.": "Song-Namen eingeben, keine URLs oder Dateipfade.",
+  "The song title is missing.": "Der Song-Titel fehlt.",
+  "The file contains no songs.": "Die Datei enthält keine Songs.",
+  "A maximum of 1000 songs can be imported at once.": "Maximal 1000 Songs pro Import.",
+  "Import cancelled.": "Import abgebrochen.",
+  "Search did not respond within ${seconds} seconds. Try a shorter or simpler list.": "Suche antwortete nicht innerhalb von ${seconds} Sekunden. Kürzere Liste versuchen.",
+  "Search cancelled. The queue is unchanged.": "Suche abgebrochen. Nichts wurde geändert.",
+  "Review the results. Select approximate matches manually.": "Ergebnisse prüfen. Ungefähre Treffer manuell auswählen.",
+  "Added to the end of the queue: ${count}.": "Zur Warteschlange hinzugefügt: ${count}.",
+  "Could not add songs: ${error.message}": "Songs konnten nicht hinzugefügt werden: ${error.message}",
+  "Encoding: ": "Kodierung: ",
+  "TXT file: ": "TXT-Datei: ",
+  "Song list": "Song-Liste",
+  "Find songs": "Songs suchen",
+  "Add to queue (${selected})": "Zur Warteschlange (${selected})",
+  "Create playlist (${selected})": "Playlist erstellen (${selected})",
+  "Cancel search": "Suche abbrechen",
+  "Match for ${row.entry.label}": "Treffer für ${row.entry.label}",
+  "Skip / choose a match": "Überspringen / Treffer wählen",
+  "Requires a modern Tauri version of Nuclear with Settings.registerWidget, Metadata, Playlists and Queue APIs.": "Benötigt Kracht (Tauri-Version) mit Settings.registerWidget, Metadata, Playlists und Queue APIs.",
+  "Import songs from TXT": "Songs aus TXT importieren",
+  "Find songs and create a playlist from the matches.": "Songs suchen und daraus eine Playlist erstellen.",
+  "TXT → Playlist": "TXT → Playlist",
+  "File read. Click \"Find songs\".": "Datei gelesen. \"Songs suchen\" klicken.",
+  "Could not read TXT: ${error.message}. Try Windows-1251 encoding.": "TXT nicht lesbar: ${error.message}. Windows-1251-Kodierung versuchen.",
+  "Searching: ${done} of ${total}…": "Suche: ${done} von ${total}…",
+  "Playlist created: ${count}.": "Playlist erstellt: ${count}.",
+};
+
 function translate(text, locale = language) {
   text = String(text);
-  if (locale !== 'ru') return text;
+  if (locale !== 'ru' && locale !== 'de') return text;
+  if (locale === 'de') {
+    if (Object.prototype.hasOwnProperty.call(GERMAN, text)) return GERMAN[text];
+    return text;
+  }
   if (Object.prototype.hasOwnProperty.call(RUSSIAN, text)) return RUSSIAN[text];
   for (const [english, russian] of Object.entries(RUSSIAN)) {
     const slots = english.match(/\$\{[^}]+\}/g);
