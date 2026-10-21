@@ -80,8 +80,8 @@ async function readLanguage(api) {
 
 function importDefinition() {
   return { id: 'import', title: translate('Import songs from TXT'),
-    description: translate('Find songs and append selected matches to the queue.'),
-    category: translate('TXT → Queue'), kind: 'custom', widgetId: 'txt-import' };
+    description: translate('Find songs and create a playlist from the matches.'),
+    category: translate('TXT → Playlist'), kind: 'custom', widgetId: 'txt-import' };
 }
 
 
